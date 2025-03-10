@@ -1,0 +1,60 @@
+.auth_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.auth_regi {
+    font-size:20px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.auth_form {
+    width: 100%;
+}
+
+.auth_auth_input {
+    margin-bottom: 15px;
+}
+
+.auth_auth_input label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.ayth_auth_input_view {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.ayth_auth_input_view:focus {
+    border-color: #007bff;
+    outline: 0;
+}
+
+.auth_button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.auth_button:hover {
+    background-color: #0056b3;
+}
