@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import "../styles/HomePage.css";
+import Modal from "./Modal"
 
 const AdminPage = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -19,27 +21,15 @@ const AdminPage = () => {
 
                 const data = await response.json();
                 console.log("Received data:", data);
-
-                // const usersArray = Object.values(data);
-                // console.log("Converted data to array:", usersArray);
                 const usersArray = Array.isArray(data) ? data : Object.values(data);
-
-                // if (Array.isArray(usersArray)) {
-                //     setUsers(usersArray);
-                // } else {
-                //     console.log("No valid users data", data);
-                //     setUsers([]);
-                // }
-                setUsers(usersArray)
+                setUsers(usersArray);
             } catch (error) {
                 console.error("Error fetching users with vacations", error);
                 setError(error.message);
-                // setUsers([]);
             } finally {
                 setLoading(false);
             }
         };
-
         fetchUsers();
     }, []);
 
@@ -60,6 +50,84 @@ const AdminPage = () => {
             alert("Failed to delete user. Please try again");
         }
     }
+
+    const handleEdit = (user) => {
+        setSelectedUser(user);
+        setIsModalOpen(true);
+    };
+
+    const handleCreate = () => {
+        setSelectedUser({
+            name: '',
+            email: '',
+            country: '',
+            entryDate: '',
+            exitDate: '',
+        });
+        setIsModalOpen(true);
+    };
+
+    const handleSave = async (updatedUser) => {
+        try {
+            if (selectedUser.id) {
+                const userResponse = await fetch(`http://127.0.0.1:8000/api/users/${selectedUser.id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name: updatedUser.name,
+                        email: updatedUser.email,
+                    }),
+                });
+
+                if (!userResponse.ok) {
+                    throw new Error(`Failed to update user: ${userResponse.status}`);
+                }
+
+                const vacationResponse = await fetch(`http://127.0.0.1:8000/api/users/${selectedUser.id}/update-vacation`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        country: updatedUser.country,
+                        entryDate: updatedUser.entryDate,
+                        exitDate: updatedUser.exitDate,
+                    }),
+                })
+                if (!vacationResponse.ok) {
+                    throw new Error(`Failed to update user: ${vacationResponse.status}`);
+                }
+                setUsers((prevUser) =>
+                    prevUser.map(user => user.id === selectedUser.id ? updatedUser : user)
+                );
+            } else {
+                const response = await fetch(`http://127.0.0.1:8000/api/users`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(updatedUser),
+                });
+                if (!response.ok) {
+                    throw new Error(`Failed to create user: ${response.status}`)
+                }
+                const newUser = await response.json();
+                setUsers([...users, newUser]);
+            }
+
+            closeModal();
+        } catch (error) {
+            console.error("Error preservation user:", error)
+            alert("Failed to create user. Please try again");
+        }
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedUser(null);
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -88,10 +156,6 @@ const AdminPage = () => {
                     <tbody>
                     {Array.isArray(users) && users.length > 0 ? (
                         users.map((user) => (
-                            // console.log("User data:", user);
-                            // return (
-                    // {users.length > 0 ? (
-                    //     users.map((user) => (
                             <tr key={user.id}>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
@@ -99,8 +163,8 @@ const AdminPage = () => {
                                 <td className="client-order-items-load-enter">{user.entryDate || "N/A"}</td>
                                 <td className="client-order-items-load-exit">{user.exitDate || "N/A"}</td>
                                 <td className="client-order-items-load-button">
-                                    <button onClick={() => (user.id)}>Edit</button>
-                                    <button onClick={() => (user.id)}>Create</button>
+                                    <button onClick={() => handleEdit(user)}>Edit</button>
+                                    <button onClick={handleCreate}>Create</button>
                                     <button onClick={() => handleRemove(user.id)}>Remove</button>
                                 </td>
                             </tr>
@@ -113,11 +177,17 @@ const AdminPage = () => {
                     </tbody>
                 </table>
             </section>
+
+            <Modal
+                isOpen={isModalOpen}
+                close={closeModal}
+                user={selectedUser}
+                setUser={setSelectedUser}
+                onSave={handleSave}
+            />
         </div>
-    )
-        ;
+    );
 };
 
 export default AdminPage;
-
 
