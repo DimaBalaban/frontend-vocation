@@ -95,12 +95,14 @@ const AdminPage = () => {
                         entryDate: updatedUser.entryDate,
                         exitDate: updatedUser.exitDate,
                     }),
-                })
+                });
+
                 if (!vacationResponse.ok) {
                     throw new Error(`Failed to update user: ${vacationResponse.status}`);
                 }
-                setUsers((prevUser) =>
-                    prevUser.map(user => user.id === selectedUser.id ? updatedUser : user)
+
+                setUsers((prevUsers) =>
+                    prevUsers.map(user => user.id === selectedUser.id ? updatedUser : user)
                 );
             } else {
                 const response = await fetch(`http://127.0.0.1:8000/api/users`, {
@@ -110,16 +112,19 @@ const AdminPage = () => {
                     },
                     body: JSON.stringify(updatedUser),
                 });
+
                 if (!response.ok) {
-                    throw new Error(`Failed to create user: ${response.status}`)
+                    throw new Error(`Failed to create user: ${response.status}`);
                 }
+
                 const newUser = await response.json();
-                setUsers([...users, newUser]);
+
+                setUsers((prevUsers) => [newUser, ...prevUsers]);
             }
 
             closeModal();
         } catch (error) {
-            console.error("Error preservation user:", error)
+            console.error("Error preserving user:", error);
             alert("Failed to create user. Please try again");
         }
     };
@@ -142,6 +147,9 @@ const AdminPage = () => {
             <h1>Admin Page</h1>
             <section>
                 <h2>Clients</h2>
+
+                <button className="create-button" onClick={handleCreate}>Create</button>
+
                 <table className="client-order">
                     <thead>
                     <tr className="client-order-items">
@@ -164,7 +172,7 @@ const AdminPage = () => {
                                 <td className="client-order-items-load-exit">{user.exitDate || "N/A"}</td>
                                 <td className="client-order-items-load-button">
                                     <button onClick={() => handleEdit(user)}>Edit</button>
-                                    <button onClick={handleCreate}>Create</button>
+                                    {/*<button onClick={handleCreate}>Create</button>*/}
                                     <button onClick={() => handleRemove(user.id)}>Remove</button>
                                 </td>
                             </tr>

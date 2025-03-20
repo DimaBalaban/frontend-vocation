@@ -157,9 +157,12 @@ section {
 td {
     font-style: italic;
     padding-top: 10px;
-    padding-left: 40px;
+    padding-left: 35px;
 }
 
+.create-button{
+    margin-left: 64%;
+}
 .client-order-items-load-enter {
     padding-left: 95px;
 }
