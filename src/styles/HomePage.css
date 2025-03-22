@@ -2,18 +2,20 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    background-image: url("https://static.vecteezy.com/system/resources/previews/022/006/233/large_2x/travel-abstract-background-with-transport-and-nature-trip-backdrop-generative-ai-photo.jpeg");
+    background-size: contain;
+    border-radius: 3%;
 }
 
 .card {
-    background-image: url("https://static.vecteezy.com/system/resources/previews/022/006/233/large_2x/travel-abstract-background-with-transport-and-nature-trip-backdrop-generative-ai-photo.jpeg");
-    background-size: contain;
     flex: 1 1 calc(30% - 20px);
     max-width: calc(30% - 20px);
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 8px;
+    margin: 5px;
     /*padding: 20px;*/
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
     height: 250px;
     display: flex;
     flex-direction: column;
@@ -77,6 +79,10 @@ h3 {
     font-size: 14px;
 }
 
+.calendar label{
+    font-weight: bold;
+    color: #333333;
+}
 .photo-container {
     width: 150px;
     height: 10px;
@@ -101,11 +107,15 @@ h3 {
 }
 
 .add-button {
-    width: 23%;
+    width: 21%;
+    height: 16%;
     margin-left: 30px;
+    margin-top: -10px;
+    padding: 0;
     color: white;
-    background-color: #e04343;
+    background: linear-gradient(to right,darkslateblue,#4CAF50);
     border-radius: 5px;
+
 }
 
 .cancel-button {
@@ -120,6 +130,14 @@ h3 {
     margin-top: -20px;
     margin-left: 190px;
 }
+
+a{
+    font-style: oblique;
+    color: palevioletred;
+    text-decoration: none;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8) ;
+}
+
 
 .click-counter {
     font-weight: bold;
@@ -160,9 +178,10 @@ td {
     padding-left: 35px;
 }
 
-.create-button{
+.create-button {
     margin-left: 64%;
 }
+
 .client-order-items-load-enter {
     padding-left: 95px;
 }
@@ -208,8 +227,12 @@ th {
 }
 
 .like-count {
-    font-size: 14px;
+    font-size: 12px;
+    font-weight: bold;
     font-style: italic;
+    margin-top: 10px;
+    margin-left: -13px;
+    text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.8) ;
 }
 
 @keyframes fadeUp {

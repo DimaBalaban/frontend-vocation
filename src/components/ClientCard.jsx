@@ -121,15 +121,8 @@ const ClientCard = ({id, photo, country, role}) => {
 
     return (
         <div className="card">
-            {/*{role === "admin" && (*/}
-            {/*    <div className="admin-button">*/}
-            {/*        <button className="add-btn">Add</button>*/}
-            {/*        <button className="delet-btn">Delete</button>*/}
-            {/*    </div>*/}
-            {/*)}*/}
-
             {!isDateSelected ? (
-                    <>
+                <>
                     <h3>
                         <a
                             href={`https://en.wikipedia.org/wiki/${country}`}
@@ -150,22 +143,10 @@ const ClientCard = ({id, photo, country, role}) => {
                         <span className="like-count">{likeCount}</span>
                         {showHeart && <span className="heart-animation">&#10084;&#65039;</span>}
                     </div>
-                    {/*<div className="checkbox">*/}
-                    {/*    <input*/}
-                    {/*        id={`checkbox-${id}`}*/}
-                    {/*        type="checkbox"*/}
-                    {/*        checked={isChecked}*/}
-                    {/*        onChange={handleClickChange}*/}
-                    {/*    />*/}
-                    {/*    <button onClick={handleCancel} className="cancel-button">Cancel</button>*/}
-                    {/*    <div className="click-counter">Like {likeCount}:</div>*/}
-                    {/*{showHeart && <span className="heart-animation">&#10084;&#65039;</span>}*/}
-                    {/*</div>*/}
-
-                <div className="calendar-container">
-                    <div className="calendar">
-                        <label htmlFor={`entry-date-${id}`}>Entry date:</label>
-                        <input
+                    <div className="calendar-container">
+                        <div className="calendar">
+                            <label htmlFor={`entry-date-${id}`}>Entry date:</label>
+                            <input
                                 id={`entry-date-${id}`}
                                 type="date"
                                 value={entryDate || ""}

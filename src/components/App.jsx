@@ -12,12 +12,6 @@ const App = () => {
         <Router>
             <div>
                 <h1>Sale Website</h1>
-                {/*<nav>*/}
-                {/*    <Link to="/HomePage">Home</Link>*/}
-                {/*    <Link to="/">Login</Link>*/}
-                {/*    <Link to="/authentication">Register</Link>*/}
-                {/*</nav>*/}
-
                 <div className="page_content">
                     <Routes>
                         <Route path="/" element={<Login/>}/>
