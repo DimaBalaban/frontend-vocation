@@ -9,7 +9,7 @@ const AdminPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
-    // Функция для выполнения запросов API
+
     const fetchFromAPI = async (url, options) => {
         const response = await fetch(url, options);
         if (!response.ok) {
@@ -36,7 +36,6 @@ const AdminPage = () => {
         fetchUsers();
     }, []);
 
-    // Обработчик удаления пользователя
     const handleRemove = async (id) => {
         if (!window.confirm("Are you sure you want to delete this user?")) {
             return;
@@ -52,13 +51,11 @@ const AdminPage = () => {
         }
     };
 
-    // Обработчик редактирования пользователя
     const handleEdit = (user) => {
         setSelectedUser(user);
         setIsModalOpen(true);
     };
 
-    // Обработчик создания нового пользователя
     const handleCreate = () => {
         setSelectedUser({
             name: '',
@@ -70,12 +67,11 @@ const AdminPage = () => {
         setIsModalOpen(true);
     };
 
-    // Обработчик сохранения данных пользователя
     const handleSave = async (updatedUser) => {
-        console.log("Saving user with data:", updatedUser); // Логируем данные
+        console.log("Saving user with data:", updatedUser);
 
         try {
-            // если пользователь существует, обновляем его
+
             if (selectedUser.id) {
                 const userResponse = await fetch(`http://127.0.0.1:8000/api/users/${selectedUser.id}`, {
                     method: "PUT",
@@ -85,7 +81,7 @@ const AdminPage = () => {
                     body: JSON.stringify({
                         name: updatedUser.name,
                         email: updatedUser.email,
-                        // Добавьте другие поля, если они требуются
+
                     }),
                 });
 
@@ -135,18 +131,15 @@ const AdminPage = () => {
         }
     };
 
-    // Закрытие модального окна
     const closeModal = () => {
         setIsModalOpen(false);
         setSelectedUser(null);
     };
 
-    // Если данные еще загружаются
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    // Если произошла ошибка
     if (error) {
         return <div>Error: {error}</div>;
     }
