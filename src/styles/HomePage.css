@@ -79,10 +79,20 @@ h3 {
     font-size: 14px;
 }
 
-.calendar label{
+.input_search {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: 100%;
+    max-width: 300px;
+    display: block;
+
+}
+
+.calendar label {
     font-weight: bold;
     color: #333333;
 }
+
 .photo-container {
     width: 150px;
     height: 10px;
@@ -113,7 +123,7 @@ h3 {
     margin-top: -10px;
     padding: 0;
     color: white;
-    background: linear-gradient(to right,darkslateblue,#4CAF50);
+    background: linear-gradient(to right, darkslateblue, #4CAF50);
     border-radius: 5px;
 
 }
@@ -131,11 +141,11 @@ h3 {
     margin-left: 190px;
 }
 
-a{
+a {
     font-style: oblique;
     color: palevioletred;
     text-decoration: none;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8) ;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
 }
 
 
@@ -232,7 +242,7 @@ th {
     font-style: italic;
     margin-top: 10px;
     margin-left: -13px;
-    text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.8) ;
+    text-shadow: 2px 3px 6px rgba(0, 0, 0, 0.8);
 }
 
 @keyframes fadeUp {
