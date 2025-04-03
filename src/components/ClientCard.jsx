@@ -1,16 +1,20 @@
 import React, {useState, useEffect} from "react";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
 import "../styles/HomePage.css";
 
-const ClientCard = ({id, photo, country, role}) => {
+const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
     const userId = localStorage.getItem("user_id");
 
     const [entryDate, setEntryDate] = useState(null);
     const [exitDate, setExitDate] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
     const [isDateSelected, setIsDateSelected] = useState(false);
+    const [showSlider, setShowSlider] = useState(false);
     const [showHeart, setShowHeart] = useState(false);
     const [isFlying, setIsFlying] = useState(false);
     const [likeCount, setLikeCount] = useState(0);
+
 
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/api/vacations_like/${id}`)
@@ -119,6 +123,21 @@ const ClientCard = ({id, photo, country, role}) => {
         }
     };
 
+    const handlePhotoClick = () => {
+        setShowSlider(true)
+    };
+
+    const handleCloseSlider = () => {
+        setShowSlider(false)
+    };
+
+    const galleryImadge = galleryPhoto.map((img) => ({
+        original: img,
+        thumbnail: img,
+        originalClass: "fixed-img-size",
+
+    }));
+
     return (
         <div className="card">
             {!isDateSelected ? (
@@ -133,8 +152,9 @@ const ClientCard = ({id, photo, country, role}) => {
                             {country}
                         </a>
                     </h3>
-                    <div className="photo-container">
-                        {photo && <img src={photo} alt={`Foto ${id}`} className="client-photo"/>}
+                    <div className="photo-container" onClick={handlePhotoClick}>
+                        {/*{photo && <img src={photo} alt={`Foto ${id}`} className="client-photo"/>}*/}
+                        <img src={photo} alt={`Foto ${id}`} className="client-photo"/>
                     </div>
                     <div className="like-container">
                         <button className="heart-button" onClick={handleClickChange}>
@@ -190,6 +210,14 @@ const ClientCard = ({id, photo, country, role}) => {
                     <button onClick={handleCancel} className="cancel-button">
                         Cancel
                     </button>
+                </div>
+            )}
+            {showSlider && (
+                <div className="slider-overlay" onClick={handleCloseSlider}>
+                    <div className="slider-container" onClick={(e) => e.stopPropagation()}>
+                        {/*<button className="close-button" onClick={handleCloseSlider}>x</button>*/}
+                        <ImageGallery items={galleryImadge}/>
+                    </div>
                 </div>
             )}
         </div>
