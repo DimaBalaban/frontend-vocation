@@ -38,7 +38,7 @@ const UserTable = ({users, onCreate, onEdit, onRemove}) => {
                         ))
                     ) : (
                         <TableRow>
-                            <TableCell colSpam={6} align="center">
+                            <TableCell colSpan={6} align="center">
                                 No Users available
                             </TableCell>
 

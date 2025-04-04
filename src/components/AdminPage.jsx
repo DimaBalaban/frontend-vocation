@@ -1,7 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect,} from 'react';
 import "../styles/HomePage.css";
 import Modal from "./Modal";
 import UserTable from "./UserTable";
+import SearchBar from "./SearchBar";
 
 const AdminPage = () => {
     const [users, setUsers] = useState([]);
@@ -9,10 +10,9 @@ const AdminPage = () => {
     const [error, setError] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
-    const [searchName, setSearchName] = useState("");
-    const [debouncedSearch, setDebouncedSearch] = useState("");
-
-    const inputRef = useRef(null)
+    const [searchValue, setSearchValue] = useState("");
+    // const [searchName, setSearchName] = useState("");
+    // const [debouncedSearch, setDebouncedSearch] = useState("");
 
     const fetchFromAPI = async (url, options = {}) => {
         const response = await fetch(url, {
@@ -32,19 +32,6 @@ const AdminPage = () => {
         return await response.json();
     };
 
-    // useEffect(() => {
-    // const fetchUsers = async () => {
-    //     try {
-    //         const data = await fetchFromAPI("http://127.0.0.1:8000/api/users-with-vacations");
-    //         setUsers(Array.isArray(data) ? data : Object.values(data));
-    //     } catch (error) {
-    //         setError(error.message);
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // };
-    //     fetchUsers();
-    // }, []);
 
     const fetchUsers = async (search = "") => {
         setLoading(true);
@@ -58,22 +45,28 @@ const AdminPage = () => {
         }
     };
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setDebouncedSearch(searchName);
-    }, 1000);
-    return () => clearTimeout(timeout);
-}, [searchName]);
+    // useEffect(() => {
+    //     const timeout = setTimeout(() => {
+    //         setDebouncedSearch(searchName);
+    //     }, 1000);
+    //     return () => clearTimeout(timeout);
+    // }, [searchName]);
 
+    // useEffect(() => {
+    //     fetchUsers(debouncedSearch);
+    // }, [debouncedSearch]);
+    //
+    // useEffect(() => {
+    //     if (inputRef.current) {
+    //         inputRef.current.focus();
+    //     }
+    // }, [users]);
+    const handleSearch = () => {
+        fetchUsers(searchValue);
+    }
     useEffect(() => {
-        fetchUsers(debouncedSearch);
-    }, [debouncedSearch]);
-
-    useEffect(()=>{
-        if(inputRef.current){
-            inputRef.current.focus();
-        }
-    },[users]);
+        fetchUsers();
+    }, []);
 
     const handleRemove = async (id) => {
         if (!window.confirm("Are you sure you want to delete this user?")) return;
@@ -161,13 +154,7 @@ const AdminPage = () => {
             <section>
                 <h2>Clients</h2>
 
-                <input className="input_search"
-                       ref={inputRef}
-                       type="text"
-                       placeholder="Search by name..."
-                       value={searchName}
-                       onChange={(e) => setSearchName(e.target.value)}
-                />
+                <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} onSearch={handleSearch}/>
 
                 <UserTable users={users} onEdit={handleEdit} onRemove={handleRemove} onCreate={handleCreate}/>
                 {/*<UserTable users={filterUser} onEdit={handleEdit} onRemove={handleRemove} onCreate={handleCreate}/>*/}
