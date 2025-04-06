@@ -2,9 +2,11 @@ import React, {useState, useEffect} from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "../styles/HomePage.css";
+import { useNavigate } from "react-router-dom";
 
 const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
     const userId = localStorage.getItem("user_id");
+    const navigate = useNavigate();
 
     const [entryDate, setEntryDate] = useState(null);
     const [exitDate, setExitDate] = useState(null);
@@ -193,7 +195,10 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
                     </button>
                     {isFlying && <span className="plane-fly">&#128747;</span>}
                     <h5 className="rules-link">
-                        <a href="#" target="_blank" rel="noopener noreferrer">
+                        <a href="/vacation-rules" onClick={(e) => {
+                            e.preventDefault();
+                            navigate('/vacation-rules');
+                        }}>
                             Rules Vacation
                         </a>
                     </h5>

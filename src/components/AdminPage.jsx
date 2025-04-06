@@ -1,4 +1,4 @@
-import React, {useState, useEffect,} from 'react';
+import React, {useState, useEffect} from 'react';
 import "../styles/HomePage.css";
 import Modal from "./Modal";
 import UserTable from "./UserTable";

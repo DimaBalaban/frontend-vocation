@@ -1,4 +1,5 @@
 import  React,{useRef} from 'react';
+import { Button } from "@mui/material";
 
 const SearchBar = ({searchValue, setSearchValue, onSearch}) => {
     const inputRef = useRef(null);
@@ -13,7 +14,7 @@ const SearchBar = ({searchValue, setSearchValue, onSearch}) => {
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             />
-            <button onClick={onSearch}>Search</button>
+            <Button variant="outlined" color="primary" onClick={onSearch}>Search</Button>
         </div>
     );
 };
