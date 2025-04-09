@@ -6,6 +6,7 @@ import Authentication from "../components/Authentication";
 import "../index.css";
 import AdminPage from "./AdminPage";
 import VacationRules from "./VacationRules";
+import AIChatbot from "./AIChatbot/AIChatbot";
 
 const App = () => {
     return (
@@ -21,6 +22,7 @@ const App = () => {
                         <Route path="/vacation-rules" element={<VacationRules/>}/>
                     </Routes>
                 </div>
+                <AIChatbot />
             </div>
         </Router>
     )

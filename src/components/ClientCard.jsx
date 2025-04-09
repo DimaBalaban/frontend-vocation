@@ -155,7 +155,6 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
                         </a>
                     </h3>
                     <div className="photo-container" onClick={handlePhotoClick}>
-                        {/*{photo && <img src={photo} alt={`Foto ${id}`} className="client-photo"/>}*/}
                         <img src={photo} alt={`Foto ${id}`} className="client-photo"/>
                     </div>
                     <div className="like-container">
@@ -220,7 +219,6 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
             {showSlider && (
                 <div className="slider-overlay" onClick={handleCloseSlider}>
                     <div className="slider-container" onClick={(e) => e.stopPropagation()}>
-                        {/*<button className="close-button" onClick={handleCloseSlider}>x</button>*/}
                         <ImageGallery items={galleryImadge}/>
                     </div>
                 </div>
