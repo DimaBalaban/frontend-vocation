@@ -162,7 +162,7 @@ h3 {
 
 .photo-container {
     width: 150px;
-    height: 10px;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -195,11 +195,11 @@ h3 {
 
 }
 
-.cancel-button {
-    margin-top: 0;
-    padding: 0;
-    padding: 3px;
-}
+/*.cancel-button {*/
+/*    margin-top: 0;*/
+/*    padding: 0;*/
+/*    padding: 3px;*/
+/*}*/
 
 .rules-link {
     padding: 0;
@@ -359,4 +359,54 @@ th {
     flex-direction: column;
     overflow: hidden;
     z-index: 1000;
+}
+
+@media (max-width: 800px) {
+    .container {
+        justify-content: center;
+    }
+
+    .card {
+        flex: 1 1 calc(45% - 10px);
+        max-width: calc(45% - 10px);
+        margin: 10px;
+    }
+}
+
+@media (max-width: 500px) {
+    .card {
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin: 10px 0;
+    }
+
+    .like-container {
+        padding-left: 0;
+        justify-content: center;
+    }
+
+    .rules-link {
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .add-button {
+        margin-left: 0;
+        width: 50%;
+    }
+
+    .calendar-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        margin-left: 0;
+    }
+
+    .calendar input[type="date"] {
+        width: 100%;
+    }
+
+    .plane-fly {
+        left: 45%;
+    }
 }
