@@ -2,7 +2,9 @@ import React, {useState, useEffect} from "react";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import "../styles/HomePage.css";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import {toast} from "react-toastify";
+import {TableContainer} from "@mui/material";
 
 const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
     const userId = localStorage.getItem("user_id");
@@ -41,6 +43,23 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
         if (!isChecked) {
             if (!userId) {
                 alert("Error: user is not authorized.");
+                toast.error("Error: user is not authorized.", {
+                    style: {
+                        width: '400px',
+                        overflow: 'hidden',
+                        borderRadius: '8px',
+                        height: 'auto',
+                        fontSize: '18px',
+                    },
+                    progressStyle: {
+                        height: '4px',
+                        borderRadius: '0 0 8px 8px',
+                    },
+                    position: "top-left",
+                    autoClose: 3000,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
                 return;
             }
 
@@ -60,7 +79,24 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
                     console.log("response from server:", data);
                     if (data.message === "Like already exists") {
                         console.log("Like already exists");
-                        alert("you already liked this card");
+                        // alert("you already liked this card");
+                        toast.warning("You already liked this card", {
+                            style: {
+                                width: '400px',
+                                overflow: 'hidden',
+                                borderRadius: '8px',
+                                height: 'auto',
+                                fontSize: '18px',
+                            },
+                            progressStyle: {
+                                height: '4px',
+                                borderRadius: '0 0 8px 8px',
+                            },
+                            position: "top-left",
+                            autoClose: 3000,
+                            pauseOnHover: true,
+                            draggable: true,
+                        });
                         setIsChecked(false);
                     } else {
                         setLikeCount(data.like_count);
@@ -79,12 +115,46 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
     };
     const handleAddTrip = () => {
         if (!userId) {
-            alert("Error: user is not authorised.");
+            // alert("Error: user is not authorised.");
+            toast.error("Error: user is not authorised.", {
+                style: {
+                    width: '400px',
+                    overflow: 'hidden',
+                    borderRadius: '8px',
+                    height: 'auto',
+                    fontSize: '18px',
+                },
+                progressStyle: {
+                    height: '4px',
+                    borderRadius: '0 0 8px 8px',
+                },
+                position: "top-left",
+                autoClose: 6000,
+                pauseOnHover: true,
+                draggable: true,
+            });
             return;
         }
 
         if (!entryDate || !exitDate) {
-            alert("Error: select travel dates");
+            // alert("Error: select travel dates");
+            toast.warning("Error: select travel dates", {
+                style: {
+                    width: '400px',
+                    overflow: 'hidden',
+                    borderRadius: '8px',
+                    height: 'auto',
+                    fontSize: '18px',
+                },
+                progressStyle: {
+                    height: '4px',
+                    borderRadius: '0 0 8px 8px',
+                },
+                position: "top-left",
+                autoClose: 3000,
+                pauseOnHover: true,
+                draggable: true,
+            });
             return;
         }
 
@@ -101,7 +171,24 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
             .then((res) => res.json())
             .then((data) => {
                 if (data.message === "Trip successfully added!") {
-                    alert("Trip successfully added!");
+                    // alert("Trip successfully added!");
+                    toast.success("Trip successfully added!", {
+                        style: {
+                            width: '400px',
+                            overflow: 'hidden',
+                            borderRadius: '8px',
+                            height: 'auto',
+                            fontSize: '18px',
+                        },
+                        progressStyle: {
+                            height: '4px',
+                            borderRadius: '0 0 8px 8px',
+                        },
+                        position: "top-center",
+                        autoClose: 6000,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
                     setIsDateSelected(true);
                 } else {
                     alert("Error adding trip.");
@@ -192,6 +279,7 @@ const ClientCard = ({id, photo, country, galleryPhoto, role}) => {
                             className="add-button">
                         Add Trip
                     </button>
+                    <TableContainer/>
                     {isFlying && <span className="plane-fly">&#128747;</span>}
                     <h5 className="rules-link">
                         <a href="/vacation-rules" onClick={(e) => {

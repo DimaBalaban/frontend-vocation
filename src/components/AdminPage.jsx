@@ -3,6 +3,8 @@ import "../styles/HomePage.css";
 import Modal from "./Modal";
 import UserTable from "./UserTable";
 import SearchBar from "./SearchBar";
+import {toast} from "react-toastify";
+import {TableContainer} from "@mui/material";
 
 const AdminPage = () => {
     const [users, setUsers] = useState([]);
@@ -74,7 +76,24 @@ const AdminPage = () => {
             await fetchFromAPI(`http://127.0.0.1:8000/api/users/${id}`, {method: "DELETE"});
             setUsers((prevUsers) => prevUsers.filter(user => user.id !== id));
         } catch (error) {
-            alert("Failed to delete user. Please try again");
+            // alert("Failed to delete user. Please try again");
+            toast.error("Failed to delete user. Please try again", {
+                style: {
+                    width: '400px',
+                    overflow: 'hidden',
+                    borderRadius: '8px',
+                    height: 'auto',
+                    fontSize: '18px',
+                },
+                progressStyle: {
+                    height: '4px',
+                    borderRadius: '0 0 8px 8px',
+                },
+                position: "top-center",
+                autoClose: 6000,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
     };
 
@@ -134,7 +153,24 @@ const AdminPage = () => {
             closeModal();
         } catch (error) {
             console.error("Failed to create/update user:", error);
-            alert("Failed to create/update user. Please try again");
+            // alert("Failed to create/update user. Please try again");
+            toast.error("Failed to create/update user. Please try again", {
+                style: {
+                    width: '400px',
+                    overflow: 'hidden',
+                    borderRadius: '8px',
+                    height: 'auto',
+                    fontSize: '18px',
+                },
+                progressStyle: {
+                    height: '4px',
+                    borderRadius: '0 0 8px 8px',
+                },
+                position: "top-center",
+                autoClose: 6000,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
     };
     const closeModal = () => {
@@ -162,7 +198,9 @@ const AdminPage = () => {
 
             <Modal isOpen={isModalOpen} close={closeModal} user={selectedUser} setUser={setSelectedUser}
                    onSave={handleSave}/>
+            <TableContainer/>
         </div>
+
     );
 };
 

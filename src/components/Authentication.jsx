@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import "../styles/Auth.css";
+import {TableContainer} from "@mui/material";
+import {toast} from "react-toastify";
 
 const Authentication = () => {
     const [name, setName] = useState("");
@@ -28,12 +30,46 @@ const Authentication = () => {
                 data = JSON.parse(text);
             } catch (error) {
                 console.error("Error parsing JSON:", error);
-                alert("Error registration. Server returned invalid response.");
+                // alert("Error registration. Server returned invalid response.");
+                toast.error("Error registration. Server returned invalid response.", {
+                    style: {
+                        width: '400px',
+                        overflow: 'hidden',
+                        borderRadius: '8px',
+                        height: 'auto',
+                        fontSize: '18px',
+                    },
+                    progressStyle: {
+                        height: '4px',
+                        borderRadius: '0 0 8px 8px',
+                    },
+                    position: "top-right",
+                    autoClose: 6000,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
                 return;
             }
 
             if (response.ok) {
-                alert("Registration successful!");
+                // alert("Registration successful!");
+                toast.success("Registration successful!", {
+                    style: {
+                        width: '400px',
+                        overflow: 'hidden',
+                        borderRadius: '8px',
+                        height: 'auto',
+                        fontSize: '18px',
+                    },
+                    progressStyle: {
+                        height: '4px',
+                        borderRadius: '0 0 8px 8px',
+                    },
+                    position: "top-center",
+                    autoClose: 6000,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
 
                 if (data.user && data.user.id) {
                     localStorage.setItem("user_id", data.user.id);
@@ -41,11 +77,45 @@ const Authentication = () => {
 
                 navigate("/HomePage");
             } else {
-                alert(data.errors ? JSON.stringify(data.errors) : "Error registration");
+                // alert(data.errors ? JSON.stringify(data.errors) : "Error registration");
+                toast.error(data.errors ? JSON.stringify(data.errors) : "Error registration", {
+                    style: {
+                        width: '400px',
+                        overflow: 'hidden',
+                        borderRadius: '8px',
+                        height: 'auto',
+                        fontSize: '18px',
+                    },
+                    progressStyle: {
+                        height: '4px',
+                        borderRadius: '0 0 8px 8px',
+                    },
+                    position: "top-right",
+                    autoClose: 6000,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
             }
         } catch (error) {
             console.error("Error registration:", error);
-            alert("Error registration. Check connection to server.");
+            // alert("Error registration. Check connection to server.");
+            toast.error("Error registration. Check connection to server.", {
+                style: {
+                    width: '400px',
+                    overflow: 'hidden',
+                    borderRadius: '8px',
+                    height: 'auto',
+                    fontSize: '18px',
+                },
+                progressStyle: {
+                    height: '4px',
+                    borderRadius: '0 0 8px 8px',
+                },
+                position: "top-center",
+                autoClose: 6000,
+                pauseOnHover: true,
+                draggable: true,
+            });
         }
     };
 
@@ -85,6 +155,7 @@ const Authentication = () => {
                 </div>
                 <button type="submit" className="auth_button">Registration</button>
             </form>
+            <TableContainer/>
         </div>
     );
 };

@@ -7,6 +7,8 @@ import "../index.css";
 import AdminPage from "./AdminPage";
 import VacationRules from "./VacationRules";
 import AIChatbot from "./AIChatbot/AIChatbot";
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
     return (
@@ -21,6 +23,7 @@ const App = () => {
                         <Route path="/Authentication" element={<Authentication/>}/>
                         <Route path="/vacation-rules" element={<VacationRules/>}/>
                     </Routes>
+                    <ToastContainer/>
                 </div>
                 <AIChatbot />
             </div>
