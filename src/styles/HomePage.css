@@ -3,7 +3,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     /*background-image: url("https://static.vecteezy.com/system/resources/previews/022/006/233/large_2x/travel-abstract-background-with-transport-and-nature-trip-backdrop-generative-ai-photo.jpeg");*/
-    background-image: url("/public/img/vacation.jpg");
+    background-image: url("/public/img/rever.jpg");
     background-size: cover;
     border-radius: 3%;
 }
